@@ -2,12 +2,14 @@ interface ErrorStateProps {
   title?: string
   description?: string
   onRetry?: () => void
+  children?: React.ReactNode
 }
 
 export default function ErrorState({
   title = 'Unable to connect to server',
   description = 'Please check your connection and try again.',
   onRetry,
+  children,
 }: ErrorStateProps) {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-4 px-6 text-center">
@@ -36,6 +38,7 @@ export default function ErrorState({
           Try again
         </button>
       )}
+      {children}
     </div>
   )
 }
