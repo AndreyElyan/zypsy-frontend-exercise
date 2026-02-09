@@ -28,7 +28,7 @@ routes.forEach((route) => fastify.route(route));
 
 try {
   await fastify.ready();
-  await fastify.listen({ port: 9000 });
+  await fastify.listen({ port: Number(process.env.PORT) || 9000, host: '0.0.0.0' });
 } catch (err) {
   fastify.log.error(err);
   process.exit(1);
