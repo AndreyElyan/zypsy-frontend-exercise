@@ -9,7 +9,10 @@ export function useCategories() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const categoriesRef = useRef(categories)
-  categoriesRef.current = categories
+
+  useEffect(() => {
+    categoriesRef.current = categories
+  }, [categories])
 
   useEffect(() => {
     fetchCategories()
