@@ -24,9 +24,11 @@ const defaultProps = {
 }
 
 describe('PostCard', () => {
-  test('renders formatted date', () => {
+  test('renders formatted date inside time element', () => {
     render(<PostCard {...defaultProps} />)
-    expect(screen.getByText('Thursday, May 23rd 2024')).toBeInTheDocument()
+    const time = screen.getByText('Thursday, May 23rd 2024')
+    expect(time.tagName).toBe('TIME')
+    expect(time).toHaveAttribute('datetime', '2024-05-23')
   })
 
   test('renders post description', () => {

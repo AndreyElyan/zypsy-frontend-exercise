@@ -81,4 +81,41 @@ describe('StarIcon', () => {
     const { container } = render(<StarIcon filled={false} className="custom" />)
     expect(getSvg(container)).toHaveClass('custom')
   })
+
+  test('has tabIndex 0 when onClick provided', () => {
+    const { container } = render(<StarIcon filled={false} onClick={vi.fn()} />)
+    expect(getSvg(container)).toHaveAttribute('tabindex', '0')
+  })
+
+  test('has no tabIndex when onClick not provided', () => {
+    const { container } = render(<StarIcon filled={false} />)
+    expect(getSvg(container)).not.toHaveAttribute('tabindex')
+  })
+
+  test('calls onClick on Enter key', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    const { container } = render(<StarIcon filled={false} onClick={onClick} />)
+    getSvg(container).focus()
+    await user.keyboard('{Enter}')
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  test('calls onClick on Space key', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    const { container } = render(<StarIcon filled={false} onClick={onClick} />)
+    getSvg(container).focus()
+    await user.keyboard(' ')
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  test('does not call onClick on other keys', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    const { container } = render(<StarIcon filled={false} onClick={onClick} />)
+    getSvg(container).focus()
+    await user.keyboard('a')
+    expect(onClick).not.toHaveBeenCalled()
+  })
 })

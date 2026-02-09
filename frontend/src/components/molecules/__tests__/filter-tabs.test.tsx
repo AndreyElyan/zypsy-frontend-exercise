@@ -40,6 +40,12 @@ describe('FilterTabs', () => {
     expect(onFilterChange).toHaveBeenCalledWith('all')
   })
 
+  test('has radiogroup role with accessible label', () => {
+    render(<FilterTabs activeFilter="all" onFilterChange={vi.fn()} />)
+    const group = screen.getByRole('radiogroup', { name: 'Category filter' })
+    expect(group).toBeInTheDocument()
+  })
+
   test('calls onFilterChange with favorites when second tab clicked', async () => {
     const user = userEvent.setup()
     const onFilterChange = vi.fn()

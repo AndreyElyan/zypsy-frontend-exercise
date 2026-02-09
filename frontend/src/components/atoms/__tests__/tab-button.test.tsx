@@ -28,12 +28,24 @@ describe('TabButton', () => {
     const user = userEvent.setup()
     const onClick = vi.fn()
     render(<TabButton label="All" active={false} onClick={onClick} />)
-    await user.click(screen.getByRole('button'))
+    await user.click(screen.getByRole('radio'))
     expect(onClick).toHaveBeenCalledOnce()
   })
 
   test('has type button', () => {
     render(<TabButton label="All" active={false} onClick={vi.fn()} />)
-    expect(screen.getByRole('button')).toHaveAttribute('type', 'button')
+    expect(screen.getByRole('radio')).toHaveAttribute('type', 'button')
+  })
+
+  test('has role radio with aria-checked true when active', () => {
+    render(<TabButton label="All" active={true} onClick={vi.fn()} />)
+    const radio = screen.getByRole('radio')
+    expect(radio).toHaveAttribute('aria-checked', 'true')
+  })
+
+  test('has role radio with aria-checked false when inactive', () => {
+    render(<TabButton label="All" active={false} onClick={vi.fn()} />)
+    const radio = screen.getByRole('radio')
+    expect(radio).toHaveAttribute('aria-checked', 'false')
   })
 })

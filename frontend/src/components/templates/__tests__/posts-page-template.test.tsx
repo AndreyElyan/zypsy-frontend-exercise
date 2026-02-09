@@ -40,8 +40,9 @@ beforeEach(() => {
 })
 
 describe('PostsPageTemplate', () => {
-  test('renders sidebar and post list', () => {
+  test('renders sidebar and post list inside main landmark', () => {
     render(<PostsPageTemplate />)
+    expect(screen.getByRole('main')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Posts' })).toBeInTheDocument()
     expect(screen.getByText('Select a category to view posts')).toBeInTheDocument()
   })
@@ -57,7 +58,7 @@ describe('PostsPageTemplate', () => {
       error: null,
     })
     render(<PostsPageTemplate />)
-    expect(screen.getByText(/Found 1 posts of/)).toBeInTheDocument()
+    expect(screen.getByText(/Found 1 post of/)).toBeInTheDocument()
   })
 
   test('derives null name when category id not in map', () => {
@@ -124,5 +125,19 @@ describe('PostsPageTemplate', () => {
     render(<PostsPageTemplate />)
     await user.click(screen.getByRole('button', { name: 'Try again' }))
     expect(reloadMock).toHaveBeenCalledOnce()
+  })
+
+  test('shows posts error when usePosts returns error', () => {
+    vi.mocked(useSelectedCategory).mockReturnValue({
+      selectedCategoryId: '1',
+      selectCategory: mockSelectCategory,
+    })
+    vi.mocked(usePosts).mockReturnValue({
+      posts: [],
+      isLoading: false,
+      error: 'Network error',
+    })
+    render(<PostsPageTemplate />)
+    expect(screen.getByText('Failed to load posts. Please try again.')).toBeInTheDocument()
   })
 })

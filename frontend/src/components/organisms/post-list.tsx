@@ -11,6 +11,7 @@ interface PostListProps {
   categoriesMap: Record<string, Category>
   onToggleFavorite: (category: Category) => void
   isLoading: boolean
+  error?: string | null
 }
 
 export default function PostList({
@@ -20,7 +21,16 @@ export default function PostList({
   categoriesMap,
   onToggleFavorite,
   isLoading,
+  error,
 }: PostListProps) {
+  if (error) {
+    return (
+      <div className="flex-1 min-h-0 flex items-center justify-center text-gray-400">
+        <p>Failed to load posts. Please try again.</p>
+      </div>
+    )
+  }
+
   if (!categoryName && !isLoading) {
     return (
       <div className="flex-1 min-h-0 flex items-center justify-center text-gray-400">
@@ -59,7 +69,7 @@ export default function PostList({
     <div className="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto">
       <div className="border border-accent rounded-lg p-4 md:p-6">
         <p className="text-sm text-gray-600 mb-4">
-          Found {posts.length} posts of &quot;{categoryName}&quot;
+          Found {posts.length} {posts.length === 1 ? 'post' : 'posts'} of &quot;{categoryName}&quot;
         </p>
 
         <Divider className="mb-4" />

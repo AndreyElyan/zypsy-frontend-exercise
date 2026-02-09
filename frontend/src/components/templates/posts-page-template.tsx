@@ -11,7 +11,7 @@ import ErrorState from '@/components/atoms/error-state'
 export default function PostsPageTemplate() {
   const { selectedCategoryId, selectCategory } = useSelectedCategory()
   const { categories, categoriesMap, isLoading: categoriesLoading, error, toggleFavorite } = useCategories()
-  const { posts, isLoading: postsLoading } = usePosts(selectedCategoryId)
+  const { posts, isLoading: postsLoading, error: postsError } = usePosts(selectedCategoryId)
   const { filter, setFilter } = useCategoryFilter()
 
   const selectedCategoryName = selectedCategoryId
@@ -23,7 +23,7 @@ export default function PostsPageTemplate() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+    <main className="flex flex-col md:flex-row h-screen overflow-hidden">
       <CategorySidebar
         categories={categories}
         selectedCategoryId={selectedCategoryId}
@@ -40,7 +40,8 @@ export default function PostsPageTemplate() {
         categoriesMap={categoriesMap}
         onToggleFavorite={toggleFavorite}
         isLoading={postsLoading}
+        error={postsError}
       />
-    </div>
+    </main>
   )
 }

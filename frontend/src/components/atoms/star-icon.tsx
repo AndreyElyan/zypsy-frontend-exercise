@@ -17,6 +17,14 @@ export default function StarIcon({ filled, onClick, size = 'md', className }: St
     onClick?.(e)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      e.stopPropagation()
+      onClick?.(e as unknown as React.MouseEvent)
+    }
+  }
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +38,8 @@ export default function StarIcon({ filled, onClick, size = 'md', className }: St
       )}
       strokeWidth={filled ? 0 : 1.5}
       onClick={onClick ? handleClick : undefined}
+      onKeyDown={onClick ? handleKeyDown : undefined}
+      tabIndex={onClick ? 0 : undefined}
       role={onClick ? 'button' : undefined}
       aria-label={filled ? 'Remove from favorites' : 'Add to favorites'}
     >

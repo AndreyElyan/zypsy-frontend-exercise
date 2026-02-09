@@ -14,7 +14,9 @@ interface PostCardProps {
 export default function PostCard({ post, categoriesMap, selectedCategoryId, onToggleFavorite }: PostCardProps) {
   return (
     <article className="py-4">
-      <h3 className="font-bold text-base text-gray-900 mb-2">{formatPostDate(post.date)}</h3>
+      <h3 className="font-bold text-base text-gray-900 mb-2">
+        <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+      </h3>
       <p className="text-sm text-gray-700 leading-relaxed mb-3">{post.description}</p>
       <div className="flex flex-wrap gap-2">
         {post.categories

@@ -75,4 +75,14 @@ describe('PostList', () => {
     const skeletons = container.querySelectorAll('.animate-pulse')
     expect(skeletons.length).toBeGreaterThan(0)
   })
+
+  test('shows singular post when count is 1', () => {
+    render(<PostList {...defaultProps} posts={[posts[0]]} />)
+    expect(screen.getByText(/Found 1 post of/)).toBeInTheDocument()
+  })
+
+  test('shows error message when error is set', () => {
+    render(<PostList {...defaultProps} error="Network error" />)
+    expect(screen.getByText('Failed to load posts. Please try again.')).toBeInTheDocument()
+  })
 })
