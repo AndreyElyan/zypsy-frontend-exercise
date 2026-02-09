@@ -1,5 +1,6 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import PostsPageTemplate from '../posts-page-template'
 import { useSelectedCategory } from '@/hooks/use-selected-category'
 import { useCategories } from '@/hooks/use-categories'
@@ -91,5 +92,37 @@ describe('PostsPageTemplate', () => {
     render(<PostsPageTemplate />)
     const sidebar = screen.getByRole('complementary')
     expect(sidebar).toHaveTextContent('Tech')
+  })
+
+  test('renders error state when categories fail to load', () => {
+    vi.mocked(useCategories).mockReturnValue({
+      categories: [],
+      categoriesMap: {},
+      isLoading: false,
+      error: 'Failed to fetch categories',
+      toggleFavorite: mockToggleFavorite,
+    })
+    render(<PostsPageTemplate />)
+    expect(screen.getByText('Unable to connect to server')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
+  })
+
+  test('retry button reloads the page', async () => {
+    const user = userEvent.setup()
+    const reloadMock = vi.fn()
+    Object.defineProperty(window, 'location', {
+      value: { ...window.location, reload: reloadMock },
+      writable: true,
+    })
+    vi.mocked(useCategories).mockReturnValue({
+      categories: [],
+      categoriesMap: {},
+      isLoading: false,
+      error: 'Failed to fetch categories',
+      toggleFavorite: mockToggleFavorite,
+    })
+    render(<PostsPageTemplate />)
+    await user.click(screen.getByRole('button', { name: 'Try again' }))
+    expect(reloadMock).toHaveBeenCalledOnce()
   })
 })
