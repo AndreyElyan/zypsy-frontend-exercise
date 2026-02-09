@@ -2,13 +2,13 @@
   "categories": [
     {
       "id": "fa572550-ee37-4c33-9b91-8a69f902175c",
-      "favorite": true,
-      "name": "Cooking"
+      "name": "Cooking",
+      "favorite": true
     },
     {
       "id": "fb572550-ee37-4c33-9b91-8a69f902175c",
-      "favorite": false,
-      "name": "Latest Tech News"
+      "name": "Latest Tech News",
+      "favorite": true
     },
     {
       "id": "0e6f3713-bbf9-4a56-a653-8743960176b7",
@@ -27,8 +27,8 @@
     },
     {
       "id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
-      "favorite": false,
-      "name": "Entrepreneurship"
+      "name": "Entrepreneurship",
+      "favorite": true
     },
     {
       "id": "e7f8g9h0-i1j2-k3l4-m5n6-o7p8q9r0s1t",
