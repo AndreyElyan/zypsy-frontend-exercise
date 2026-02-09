@@ -31,6 +31,7 @@ export default function PostsPageTemplate() {
       <PostList
         posts={posts}
         categoryName={selectedCategoryName}
+        selectedCategoryId={selectedCategoryId}
         categoriesMap={categoriesMap}
         onToggleFavorite={toggleFavorite}
         isLoading={postsLoading}

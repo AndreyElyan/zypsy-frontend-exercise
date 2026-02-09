@@ -24,4 +24,16 @@ describe('CategoryTag', () => {
     await user.click(screen.getByLabelText('Remove from favorites'))
     expect(onToggleFavorite).toHaveBeenCalledWith(category)
   })
+
+  test('renders primary badge by default', () => {
+    render(<CategoryTag category={category} onToggleFavorite={vi.fn()} />)
+    const badge = screen.getByText('Tech').closest('span')!
+    expect(badge).toHaveClass('bg-primary', 'text-primary-fg')
+  })
+
+  test('renders secondary badge when isSelected', () => {
+    render(<CategoryTag category={category} isSelected onToggleFavorite={vi.fn()} />)
+    const badge = screen.getByText('Tech').closest('span')!
+    expect(badge).toHaveClass('bg-surface', 'text-primary', 'border-primary')
+  })
 })

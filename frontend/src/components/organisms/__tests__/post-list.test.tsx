@@ -15,6 +15,7 @@ const categoriesMap: Record<string, Category> = {
 const defaultProps = {
   posts,
   categoryName: 'Tech' as string | null,
+  selectedCategoryId: '1' as string | null,
   categoriesMap,
   onToggleFavorite: vi.fn(),
   isLoading: false,
@@ -32,10 +33,10 @@ describe('PostList', () => {
     expect(skeletons.length).toBeGreaterThan(0)
   })
 
-  test('shows 3 skeleton groups with 2 dividers when loading', () => {
+  test('shows 3 skeleton groups with 3 dividers when loading', () => {
     const { container } = render(<PostList {...defaultProps} isLoading={true} />)
     const dividers = container.querySelectorAll('hr')
-    expect(dividers).toHaveLength(2)
+    expect(dividers).toHaveLength(3)
   })
 
   test('shows post count and category name', () => {
@@ -49,10 +50,10 @@ describe('PostList', () => {
     expect(screen.getByText('Second post content here')).toBeInTheDocument()
   })
 
-  test('renders dividers between posts but not after last', () => {
+  test('renders header divider plus dividers between posts', () => {
     const { container } = render(<PostList {...defaultProps} />)
     const dividers = container.querySelectorAll('hr')
-    expect(dividers).toHaveLength(1)
+    expect(dividers).toHaveLength(2)
   })
 
   test('shows no posts found when empty array', () => {
@@ -65,6 +66,7 @@ describe('PostList', () => {
       <PostList
         posts={[]}
         categoryName={null}
+        selectedCategoryId={null}
         categoriesMap={categoriesMap}
         onToggleFavorite={vi.fn()}
         isLoading={true}

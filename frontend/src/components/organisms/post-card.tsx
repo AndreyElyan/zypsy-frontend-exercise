@@ -7,10 +7,11 @@ import CategoryTag from '@/components/molecules/category-tag'
 interface PostCardProps {
   post: Post
   categoriesMap: Record<string, Category>
+  selectedCategoryId: string | null
   onToggleFavorite: (category: Category) => void
 }
 
-export default function PostCard({ post, categoriesMap, onToggleFavorite }: PostCardProps) {
+export default function PostCard({ post, categoriesMap, selectedCategoryId, onToggleFavorite }: PostCardProps) {
   return (
     <article className="py-4">
       <h3 className="font-bold text-base text-gray-900 mb-2">{formatPostDate(post.date)}</h3>
@@ -23,6 +24,7 @@ export default function PostCard({ post, categoriesMap, onToggleFavorite }: Post
             <CategoryTag
               key={category.id}
               category={category}
+              isSelected={category.id === selectedCategoryId}
               onToggleFavorite={onToggleFavorite}
             />
           ))}

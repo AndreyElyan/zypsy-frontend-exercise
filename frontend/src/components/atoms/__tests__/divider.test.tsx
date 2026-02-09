@@ -11,7 +11,7 @@ describe('Divider', () => {
   test('applies default border classes', () => {
     const { container } = render(<Divider />)
     const hr = container.querySelector('hr')!
-    expect(hr).toHaveClass('border-t', 'border-divider')
+    expect(hr).toHaveClass('border-t', 'border-accent')
   })
 
   test('merges custom className', () => {

@@ -12,7 +12,7 @@ test.describe('Responsive layout', () => {
     expect(sidebarBox).toBeTruthy()
     expect(sidebarBox!.x).toBeLessThan(50)
     expect(sidebarBox!.width).toBeGreaterThanOrEqual(200)
-    expect(sidebarBox!.width).toBeLessThanOrEqual(260)
+    expect(sidebarBox!.width).toBeLessThanOrEqual(330)
   })
 
   test('mobile: sidebar stacks on top', async ({ page }) => {

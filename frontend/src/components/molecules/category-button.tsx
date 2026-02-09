@@ -22,8 +22,10 @@ export default function CategoryButton({
       type="button"
       onClick={() => onSelect(category.id)}
       className={cn(
-        'flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-olive-800 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-olive-700',
-        isSelected && 'ring-2 ring-olive-600 ring-offset-2',
+        'flex shrink-0 items-center gap-2 whitespace-nowrap rounded border-2 py-2 pr-4 pl-6 h-10 text-sm font-semibold leading-6 cursor-pointer transition-all',
+        isSelected
+          ? 'border-primary bg-surface text-primary'
+          : 'border-primary bg-primary text-primary-fg hover:bg-primary/90 hover:border-primary/90',
       )}
     >
       {category.name}

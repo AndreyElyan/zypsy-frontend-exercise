@@ -8,10 +8,16 @@ describe('Badge', () => {
     expect(screen.getByText('Hello')).toBeInTheDocument()
   })
 
-  test('applies default styling classes', () => {
+  test('applies primary styling by default', () => {
     render(<Badge>Test</Badge>)
     const badge = screen.getByText('Test')
-    expect(badge).toHaveClass('rounded-full', 'bg-olive-800', 'text-white')
+    expect(badge).toHaveClass('rounded', 'bg-primary', 'text-primary-fg')
+  })
+
+  test('applies secondary styling when variant is secondary', () => {
+    render(<Badge variant="secondary">Test</Badge>)
+    const badge = screen.getByText('Test')
+    expect(badge).toHaveClass('rounded', 'bg-surface', 'text-primary', 'border-primary')
   })
 
   test('merges custom className', () => {

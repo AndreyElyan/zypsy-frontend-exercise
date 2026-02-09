@@ -10,15 +10,18 @@ describe('TabButton', () => {
   })
 
   test('applies active styling when active', () => {
-    render(<TabButton label="All" active={true} onClick={vi.fn()} />)
-    const button = screen.getByRole('button')
-    expect(button).toHaveClass('text-olive-800', 'border-olive-800')
+    const { container } = render(<TabButton label="All" active={true} onClick={vi.fn()} />)
+    const outerCircle = container.querySelector('span')!
+    expect(outerCircle).toHaveClass('border-primary')
+    const innerDot = outerCircle.querySelector('span')!
+    expect(innerDot).toHaveClass('bg-primary')
   })
 
   test('applies inactive styling when not active', () => {
-    render(<TabButton label="All" active={false} onClick={vi.fn()} />)
-    const button = screen.getByRole('button')
-    expect(button).toHaveClass('text-gray-400', 'border-transparent')
+    const { container } = render(<TabButton label="All" active={false} onClick={vi.fn()} />)
+    const outerCircle = container.querySelector('span')!
+    expect(outerCircle).toHaveClass('border-accent')
+    expect(outerCircle.querySelector('span')).toBeNull()
   })
 
   test('calls onClick when clicked', async () => {

@@ -5,5 +5,5 @@ interface DividerProps {
 }
 
 export default function Divider({ className }: DividerProps) {
-  return <hr className={cn('border-t border-divider', className)} />
+  return <hr className={cn('border-t border-accent', className)} />
 }

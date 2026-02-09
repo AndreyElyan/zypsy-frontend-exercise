@@ -11,15 +11,25 @@ describe('FilterTabs', () => {
   })
 
   test('marks All categories as active when filter is all', () => {
-    render(<FilterTabs activeFilter="all" onFilterChange={vi.fn()} />)
-    expect(screen.getByText('All categories')).toHaveClass('text-olive-800')
-    expect(screen.getByText('Favorite categories')).toHaveClass('text-gray-400')
+    const { container } = render(<FilterTabs activeFilter="all" onFilterChange={vi.fn()} />)
+    const buttons = container.querySelectorAll('button')
+    const allOuter = buttons[0].querySelector('span')!
+    const favOuter = buttons[1].querySelector('span')!
+    expect(allOuter).toHaveClass('border-primary')
+    expect(allOuter.querySelector('span')).not.toBeNull()
+    expect(favOuter).toHaveClass('border-accent')
+    expect(favOuter.querySelector('span')).toBeNull()
   })
 
   test('marks Favorite categories as active when filter is favorites', () => {
-    render(<FilterTabs activeFilter="favorites" onFilterChange={vi.fn()} />)
-    expect(screen.getByText('Favorite categories')).toHaveClass('text-olive-800')
-    expect(screen.getByText('All categories')).toHaveClass('text-gray-400')
+    const { container } = render(<FilterTabs activeFilter="favorites" onFilterChange={vi.fn()} />)
+    const buttons = container.querySelectorAll('button')
+    const allOuter = buttons[0].querySelector('span')!
+    const favOuter = buttons[1].querySelector('span')!
+    expect(favOuter).toHaveClass('border-primary')
+    expect(favOuter.querySelector('span')).not.toBeNull()
+    expect(allOuter).toHaveClass('border-accent')
+    expect(allOuter.querySelector('span')).toBeNull()
   })
 
   test('calls onFilterChange with all when first tab clicked', async () => {

@@ -20,14 +20,14 @@ describe('CategoryButton', () => {
     expect(screen.getByText('Tech')).toBeInTheDocument()
   })
 
-  test('applies ring classes when selected', () => {
+  test('applies outlined style when selected', () => {
     const { container } = render(<CategoryButton {...defaultProps} isSelected={true} />)
-    expect(container.querySelector('button')).toHaveClass('ring-2')
+    expect(container.querySelector('button')).toHaveClass('bg-surface', 'text-primary')
   })
 
-  test('does not apply ring when not selected', () => {
+  test('applies primary style when not selected', () => {
     const { container } = render(<CategoryButton {...defaultProps} />)
-    expect(container.querySelector('button')).not.toHaveClass('ring-2')
+    expect(container.querySelector('button')).toHaveClass('bg-primary', 'text-primary-fg')
   })
 
   test('calls onSelect with category id on click', async () => {

@@ -63,11 +63,11 @@ describe('CategorySidebar', () => {
     expect(screen.queryByText('No favorite categories yet')).not.toBeInTheDocument()
   })
 
-  test('marks selected category with ring', () => {
+  test('marks selected category with outlined style', () => {
     const { container } = render(<CategorySidebar {...defaultProps} selectedCategoryId="2" />)
     const buttons = container.querySelectorAll('button[type="button"]')
     const scienceBtn = Array.from(buttons).find((b) => b.textContent?.includes('Science'))!
-    expect(scienceBtn).toHaveClass('ring-2')
+    expect(scienceBtn).toHaveClass('bg-surface', 'text-primary')
   })
 
   test('renders heading Posts', () => {

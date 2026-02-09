@@ -6,12 +6,13 @@ import StarIcon from '@/components/atoms/star-icon'
 
 interface CategoryTagProps {
   category: Category
+  isSelected?: boolean
   onToggleFavorite: (category: Category) => void
 }
 
-export default function CategoryTag({ category, onToggleFavorite }: CategoryTagProps) {
+export default function CategoryTag({ category, isSelected, onToggleFavorite }: CategoryTagProps) {
   return (
-    <Badge>
+    <Badge variant={isSelected ? 'secondary' : 'primary'}>
       {category.name}
       <StarIcon
         filled={category.favorite}

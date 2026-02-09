@@ -7,6 +7,7 @@ import Divider from '@/components/atoms/divider'
 interface PostListProps {
   posts: Post[]
   categoryName: string | null
+  selectedCategoryId: string | null
   categoriesMap: Record<string, Category>
   onToggleFavorite: (category: Category) => void
   isLoading: boolean
@@ -15,6 +16,7 @@ interface PostListProps {
 export default function PostList({
   posts,
   categoryName,
+  selectedCategoryId,
   categoriesMap,
   onToggleFavorite,
   isLoading,
@@ -30,46 +32,54 @@ export default function PostList({
   if (isLoading) {
     return (
       <div className="flex-1 min-h-0 p-4 md:p-6">
-        <div className="h-5 w-64 bg-gray-200 rounded animate-pulse mb-6" />
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="mb-6">
-            <div className="h-5 w-48 bg-gray-200 rounded animate-pulse mb-3" />
-            <div className="space-y-2 mb-3">
-              <div className="h-4 bg-gray-100 rounded animate-pulse" />
-              <div className="h-4 bg-gray-100 rounded animate-pulse" />
-              <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse" />
+        <div className="border border-accent rounded-lg p-4 md:p-6">
+          <div className="h-5 w-64 bg-gray-200 rounded animate-pulse mb-4" />
+          <Divider className="mb-4" />
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="mb-6">
+              <div className="h-5 w-48 bg-gray-200 rounded animate-pulse mb-3" />
+              <div className="space-y-2 mb-3">
+                <div className="h-4 bg-gray-100 rounded animate-pulse" />
+                <div className="h-4 bg-gray-100 rounded animate-pulse" />
+                <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse" />
+              </div>
+              <div className="flex gap-2">
+                <div className="h-10 w-24 bg-gray-200 rounded animate-pulse" />
+                <div className="h-10 w-28 bg-gray-200 rounded animate-pulse" />
+              </div>
+              {i < 2 && <Divider className="mt-4" />}
             </div>
-            <div className="flex gap-2">
-              <div className="h-7 w-24 bg-gray-200 rounded-full animate-pulse" />
-              <div className="h-7 w-28 bg-gray-200 rounded-full animate-pulse" />
-            </div>
-            {i < 2 && <Divider className="mt-4" />}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     )
   }
 
   return (
     <div className="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto">
-      <p className="text-sm text-gray-600 mb-2">
-        Found {posts.length} posts of &apos;{categoryName}&apos;
-      </p>
+      <div className="border border-accent rounded-lg p-4 md:p-6">
+        <p className="text-sm text-gray-600 mb-4">
+          Found {posts.length} posts of &quot;{categoryName}&quot;
+        </p>
 
-      {posts.map((post, index) => (
-        <div key={post.id}>
-          <PostCard
-            post={post}
-            categoriesMap={categoriesMap}
-            onToggleFavorite={onToggleFavorite}
-          />
-          {index < posts.length - 1 && <Divider />}
-        </div>
-      ))}
+        <Divider className="mb-4" />
 
-      {posts.length === 0 && (
-        <p className="text-gray-400 mt-8">No posts found for this category</p>
-      )}
+        {posts.map((post, index) => (
+          <div key={post.id}>
+            <PostCard
+              post={post}
+              categoriesMap={categoriesMap}
+              selectedCategoryId={selectedCategoryId}
+              onToggleFavorite={onToggleFavorite}
+            />
+            {index < posts.length - 1 && <Divider />}
+          </div>
+        ))}
+
+        {posts.length === 0 && (
+          <p className="text-gray-400 mt-8">No posts found for this category</p>
+        )}
+      </div>
     </div>
   )
 }

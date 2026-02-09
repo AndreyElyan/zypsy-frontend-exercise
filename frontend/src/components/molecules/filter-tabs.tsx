@@ -10,7 +10,7 @@ interface FilterTabsProps {
 
 export default function FilterTabs({ activeFilter, onFilterChange }: FilterTabsProps) {
   return (
-    <div className="flex gap-4 px-4 pt-3 pb-2 border-b border-divider">
+    <div className="flex justify-center gap-4 px-4 py-3">
       <TabButton
         label="All categories"
         active={activeFilter === 'all'}

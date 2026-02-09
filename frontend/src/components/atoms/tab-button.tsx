@@ -13,13 +13,20 @@ export default function TabButton({ label, active, onClick }: TabButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        'pb-2 text-sm font-medium transition-colors border-b-2',
-        active
-          ? 'text-olive-800 border-olive-800'
-          : 'text-gray-400 border-transparent hover:text-gray-600',
-      )}
+      className="flex items-center gap-2 text-sm text-foreground"
     >
+      <span
+        className={cn(
+          'flex items-center justify-center w-4.5 h-4.5 shrink-0 rounded-full border-2 transition-colors',
+          active
+            ? 'border-primary'
+            : 'border-accent',
+        )}
+      >
+        {active && (
+          <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+        )}
+      </span>
       {label}
     </button>
   )
